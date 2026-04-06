@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>APEX | Live Ranking</title>
+    <link rel="stylesheet" href="ranking.css">
+    <link rel="icon" href="logo.png">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-content">
+            <div class="nav-logo">
+                <img src="logo.svg" alt="APEX" width="50">
+                <span>APEX</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Inicio</a></li>
+                <li><span class="active">Ranking</span></li>
+                <li><a href="#proximos">Partidos</a></li>
+                <li><a href="index.html" class="nav-link-admin">Panel</a></li>
+            </ul>
+            <div class="discipline-bar discipline-bar--ranking" id="apex-discipline-bar">
+                <label class="discipline-label" for="apex-disciplina">Disciplina</label>
+                <select id="apex-disciplina" class="discipline-select">
+                    <option value="futbol">Fútbol</option>
+                    <option value="basquet">Básquet</option>
+                    <option value="voley">Vóley (mixto)</option>
+                </select>
+                <div id="apex-rama-wrap" class="rama-wrap">
+                    <label class="discipline-label" for="apex-rama">Rama</label>
+                    <select id="apex-rama" class="discipline-select">
+                        <option value="hombres">Hombres</option>
+                        <option value="mujeres">Mujeres</option>
+                    </select>
+                </div>
+            </div>
+            <div class="quick-filter-bar">
+                <button type="button" class="btn-gold-filter" onclick="buscarMiCurso()">
+                    <span class="icon">⭐</span> IR A MI CURSO
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <section class="next-matches" id="proximos">
+        <h3 class="section-title">PRÓXIMOS</h3>
+        <div class="matches-carousel" aria-live="polite">
+        </div>
+    </section>
+
+    <section class="live-score-strip" aria-live="polite">
+        <div class="live-strip-placeholder">
+            <span class="live-indicator">● LIVE</span>
+            <span class="live-placeholder-text">Elegí disciplina arriba. El marcador en vivo es el del panel para esa disciplina.</span>
+        </div>
+    </section>
+
+    <main class="main-container">
+        <section id="detail-card" class="detail-glass-card hidden">
+            <button type="button" class="close-btn" onclick="cerrarDetalle()" aria-label="Cerrar">✕</button>
+            <div class="detail-header">
+                <img id="det-flag" src="" width="80">
+                <div>
+                    <h2 id="det-pais">País</h2>
+                    <p id="det-curso" class="gold-text">Curso</p>
+                </div>
+            </div>
+            <div class="detail-stats">
+                <div class="stat"><span id="det-points-label">Goles a favor</span><b id="det-gf">0</b></div>
+                <div class="stat"><span>Diferencia</span><b id="det-dg">0</b></div>
+                <div class="stat"><span>Rendimiento</span><b id="det-rend">0%</b></div>
+            </div>
+        </section>
+
+        <section class="ranking-section">
+            <h3 id="apex-ranking-title">Ranking</h3>
+            <div class="glass-card">
+                <table class="fifa-table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>País / Curso</th>
+                            <th>PG</th>
+                            <th>PE</th>
+                            <th>PP</th>
+                            <th id="apex-th-gf">GF</th>
+                            <th id="apex-th-gc">GC</th>
+                            <th class="col-pts">PTS</th>
+                            <th>Forma</th>
+                        </tr>
+                    </thead>
+                    <tbody id="public-ranking-body"></tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <script src="disciplinas.js"></script>
+    <script src="ranking.js"></script>
+</body>
+</html>

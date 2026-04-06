@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>APEX |  Editor</title>
+    <link rel="icon" href="logo.png">
+    <link rel="stylesheet" href="editor.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&display=swap" rel="stylesheet">
+</head>
+<body>
+<div id="notification-area"></div>
+<nav class="navbar-admin">
+    <div class="nav-content">
+        <div class="admin-title">
+            <img src="logo.svg" width="40" alt="APEX">
+            <span>PANEL DE CONTROL APEX</span>
+        </div>
+
+        <div class="discipline-bar" id="apex-discipline-bar">
+            <label class="discipline-label" for="apex-disciplina">Disciplina</label>
+            <select id="apex-disciplina" class="discipline-select">
+                <option value="futbol">Fútbol</option>
+                <option value="basquet">Básquet</option>
+                <option value="voley">Vóley (mixto)</option>
+            </select>
+            <div id="apex-rama-wrap" class="rama-wrap">
+                <label class="discipline-label" for="apex-rama">Rama</label>
+                <select id="apex-rama" class="discipline-select">
+                    <option value="hombres">Hombres</option>
+                    <option value="mujeres">Mujeres</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="admin-actions">
+            <a class="btn nav-preview" href="ranking.html" target="_blank" rel="noopener" id="editor-link-ranking">Ver ranking público</a>
+            <button type="button" class="btn secondary" onclick="exportarDatos()">Exportar</button>
+            <button type="button" class="btn save-all" onclick="guardarTodo()">Sincronizar Plataforma</button>
+        </div>
+    </div>
+</nav>
+<main class="editor-grid">
+    <section class="admin-card" id="apex-live-root">
+        <h3>🔴 CONTROL DE MARCADOR EN VIVO</h3>
+
+        <div class="live-control-inputs">
+            <select id="live-t1">
+                <option value="Italia">Italia</option>
+                <option value="Argentina">Argentina</option>
+                <option value="España">España</option>
+                <option value="Portugal">Portugal</option>
+                <option value="Brasil">Brasil</option>
+                <option value="Inglaterra">Inglaterra</option>
+                <option value="Bélgica">Bélgica</option>
+                <option value="Francia">Francia</option>
+                <option value="México">México</option>
+                <option value="Bolivia">Bolivia</option>
+                <option value="Estados Unidos">Estados Unidos</option>
+                <option value="Alemania 1">Alemania 1</option>
+                <option value="Alemania 2">Alemania 2</option>
+            </select>
+                <div class="contador-container">
+                    <button type="button" onclick="document.getElementById('live-s1').stepDown()">-</button>
+                    <input type="number" id="live-s1" value="0" min="0">
+                    <button type="button" onclick="document.getElementById('live-s1').stepUp()">+</button>
+                </div>
+            <span class="vs-mid">VS</span>
+            <!-- Reemplazá el segundo contador-container -->
+                <div class="contador-container">
+                    <button type="button" onclick="document.getElementById('live-s2').stepDown()">-</button>
+                    <input type="number" id="live-s2" value="0" min="0">
+                    <button type="button" onclick="document.getElementById('live-s2').stepUp()">+</button>
+                </div>
+            <select id="live-t2">
+                <option value="Italia">Italia</option>
+                <option value="Argentina">Argentina</option>
+                <option value="España">España</option>
+                <option value="Portugal">Portugal</option>
+                <option value="Brasil">Brasil</option>
+                <option value="Inglaterra">Inglaterra</option>
+                <option value="Bélgica">Bélgica</option>
+                <option value="Francia">Francia</option>
+                <option value="México">México</option>
+                <option value="Bolivia">Bolivia</option>
+                <option value="Estados Unidos">Estados Unidos</option>
+                <option value="Alemania 1">Alemania 1</option>
+                <option value="Alemania 2">Alemania 2</option>
+            </select>
+        </div>
+
+        <select name="text" id="live-time" class="full-input">
+            <option value="1er">Primer tiempo</option>
+            <option value="2do">Segundo tiempo</option>
+            <option value="Ad">Adicional</option>
+            <option value="Descanso">Descanso</option>
+            <option value="Penales">Penales</option>
+        </select>
+
+        <button type="button" class="btn-add" onclick="aplicarMarcadorVivo()">+ Actualizar partido en vivo</button>
+    </section>
+    <section class="admin-card">
+        <h3>📅 PRÓXIMOS ENCUENTROS</h3>
+
+        <div id="calendar-editor" class="calendar-editor">
+        </div>
+
+        <button type="button" class="btn-add" onclick="agregarPartido()">+ Agregar partido</button>
+        <p class="editor-hint">Los partidos se guardan por disciplina en este navegador y se muestran en el ranking al elegir la misma disciplina.</p>
+    </section>
+    <section class="admin-card full-width">
+        <h3>🏆 RANKING GENERAL Y ESTADO DE FORMA</h3>
+
+        <div class="table-wrapper">
+            <table class="fifa-table edit-mode">
+                <thead>
+                    <tr>
+                        <th>País / Curso</th>
+                        <th>PJ</th>
+                        <th>G</th>
+                        <th>E</th>
+                        <th>P</th>
+                        <th id="apex-th-gf">GF</th>
+                        <th id="apex-th-gc">GC</th>
+                        <th>PTS</th>
+                        <th>FORMA</th>
+                        <th>ACCIONES</th>
+                    </tr>
+                </thead>
+
+                <tbody id="editor-body">
+                </tbody>
+            </table>
+        </div>
+
+        <button type="button" class="btn-add" onclick="agregarEquipo()">+ Agregar equipo</button>
+    </section>
+
+</main>
+<footer class="admin-footer">
+    <span>APEX Tournament System</span>
+    <span class="muted">Modo administrador · <a href="ranking.html" target="_blank" rel="noopener" id="editor-footer-ranking">Vista pública</a></span>
+</footer>
+<script src="disciplinas.js"></script>
+<script src="editor.js"></script>
+
+</body>
+</html>
